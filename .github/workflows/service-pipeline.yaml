@@ -1,8 +1,7 @@
 name: Deploy Cloud Run to Dev Environment
 on:
-    push:
-        branches:
-            - 'develop'
+  workflow_call:
+
 jobs:
     push_to_artifact:
         runs-on: ubuntu-latest
