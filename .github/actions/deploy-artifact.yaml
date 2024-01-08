@@ -1,6 +1,9 @@
 name: 'Deploy Artifact'
 description: 'Builds and deploys an artifact to Google Cloud Run'
 inputs:
+  GCP_CREDENTIALS:
+    description: 'Google Cloud credentials JSON'
+    required: true
   GOOGLE_PROJECT:
     description: 'Google Cloud project ID'
     required: true
@@ -21,6 +24,9 @@ inputs:
     required: true
   REGION:
     description: 'Google Cloud region'
+    required: true
+  SA_MAIL:
+    description: 'Service account email'
     required: true
 
 runs:
