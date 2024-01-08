@@ -47,6 +47,7 @@ runs:
         export_default_credentials: true
 
     - name: build and push image to artifact
+      shell: bash
       run: |
         gcloud auth configure-docker ${{ inputs.CR_URL }}
         docker build -t ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.IMAGE_NAME }}:${{ github.sha }} .
@@ -56,6 +57,7 @@ runs:
         CR_URL: ${{ inputs.CR_URL }}
 
     - name: deploy
+      shell: bash
       run: |
         gcloud run deploy ${{ inputs.TARGET_SERVICE }} --image ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.IMAGE_NAME }}:${{ github.sha }} --port=${{ inputs.PORT }} --region '${{ inputs.REGION }}' --service-account '${{ inputs.SA_MAIL }}'
       env:
