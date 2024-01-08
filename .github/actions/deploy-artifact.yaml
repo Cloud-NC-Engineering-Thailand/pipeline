@@ -10,8 +10,8 @@ inputs:
   ARTIFACT_FOLDER:
     description: 'Artifact folder in the container registry'
     required: true
-  SERVICE:
-    description: 'Service name'
+  IMAGE_NAME:
+    description: 'Image name'
     required: true
   TARGET_SERVICE:
     description: 'Target service for deployment'
@@ -43,15 +43,15 @@ runs:
     - name: build and push image to artifact
       run: |
         gcloud auth configure-docker ${{ inputs.CR_URL }}
-        docker build -t ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.SERVICE }}:${{ github.sha }} .
-        docker push ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.SERVICE }}:${{ github.sha }}
+        docker build -t ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.IMAGE_NAME }}:${{ github.sha }} .
+        docker push ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.IMAGE_NAME }}:${{ github.sha }}
       env:
         GOOGLE_PROJECT: ${{ inputs.GOOGLE_PROJECT }}
         CR_URL: ${{ inputs.CR_URL }}
 
     - name: deploy
       run: |
-        gcloud run deploy ${{ inputs.TARGET_SERVICE }} --image ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.SERVICE }}:${{ github.sha }} --port=${{ inputs.PORT }} --region '${{ inputs.REGION }}' --service-account '${{ secrets.SA_MAIL }}'
+        gcloud run deploy ${{ inputs.TARGET_SERVICE }} --image ${{ inputs.CR_URL }}/${{ inputs.GOOGLE_PROJECT }}/${{ inputs.ARTIFACT_FOLDER }}/${{ inputs.IMAGE_NAME }}:${{ github.sha }} --port=${{ inputs.PORT }} --region '${{ inputs.REGION }}' --service-account '${{ secrets.SA_MAIL }}'
       env:
         GOOGLE_PROJECT: ${{ inputs.GOOGLE_PROJECT }}
         CR_URL: ${{ inputs.CR_URL }}
