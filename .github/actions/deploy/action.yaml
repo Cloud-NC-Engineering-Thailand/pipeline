@@ -32,9 +32,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: code checkout
-      uses: actions/checkout@v4
-
     - name: auth
       uses: google-github-actions/auth@v2
       with:
