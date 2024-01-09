@@ -23,7 +23,6 @@ This workflow streamlines deploying applications to Google Cloud Run by automati
 - `GCP_CREDENTIALS`: Google Cloud credentials JSON (required).
 - `GOOGLE_PROJECT`: Google Cloud project ID (required).
 - `CR_URL`: Container Registry URL (required).
-- `ARTIFACT_FOLDER`: Artifact folder in the container registry (required).
 - `IMAGE_NAME`: Image name (required).
 - `TARGET_SERVICE`: Target service for deployment (required).
 - `PORT`: Port number (required).
